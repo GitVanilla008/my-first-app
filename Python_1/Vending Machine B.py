@@ -20,3 +20,7 @@ else:
 total = 0
 coin = int(input("Enter coin: "))
 print("amount inserted", coin)
+while coin != 0:
+    total = total + coin
+    coin = int(input("Enter coin: "))
+    print("amount inserted", total)
