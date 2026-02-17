@@ -20,6 +20,7 @@ frame.columnconfigure(0, weight=1)
 id_var = tk.StringVar()
 name_var = tk.StringVar()
 bus_var = tk.BooleanVar()
+students = []
 
 ttk.Label(frame, text = "Student ID:").grid(row=0, column=0, sticky="W", pady = 6, padx = 6)
 ttk.Entry(frame, textvariable = id_var).grid(row=0, column=1, sticky="EW", pady = 6, padx = 6)
@@ -45,6 +46,39 @@ treeview.insert("", tk.END, values=("654321", "Bob", False))
 style = ttk.Style()
 style.configure("Treeview", rowheight = 30)
 
+def refresh():
+    for i in students.get_children():
+        students.delete(i)
+    for s in students:
+        students.insert("", "end", values=(s["id"], s["name"]))
+
+def on_select(_=None):
+    sel = students.selection()
+    if not sel:
+        return
+    selected_student = students.item(sel[0], "values")
+    id_var.set(selected_student[0])
+    name_var.set(selected_student[1])
+    bus_var.set(selected_student[1])
+
+students.bind("<<TreeviewSeclect>>", on_select)
+
+def add_update():
+
+    def delete():
+        sel = students.selection()
+    if not sel:
+        return
+    #get student id data 
+    selected_student = students.item(selected_row[0], "values")
+    #find student id in student list
+    id_to_delete = selected_student[0]
+    #remove that item from the list
+    for student in students: 
+            if student[id] == id_to_delete:
+                student.remove(id_to_delete)
+    #call refresh()
+
 def save(_event=None):
     if not id_var.get().strip().isdigit():
         messagebox.showerror("Invalid", "Student ID must be a number.")
@@ -56,4 +90,7 @@ def save(_event=None):
     messagebox.showinfo("Student Information", f'Saved Student ID: {id_var.get().strip()}, Name: {name_var.get().strip()}, Bus: {bus_var.get()}')
 ttk.Button(frame, text = "Save", command = save).grid(row=3, column=0, columnspan=2, pady = 6, padx = 6)
 
+root.bind("<delete>", delete)
+refresh()
 root.mainloop()
+
