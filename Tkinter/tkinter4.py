@@ -63,21 +63,26 @@ def on_select(_=None):
 
 students.bind("<<TreeviewSeclect>>", on_select)
 
-def add_update():
+def delete(_=None):
+    global students
 
-    def delete():
-        sel = students.selection()
-    if not sel:
+    selected_row = students.selection()
+    if not selected_row:
         return
-    #get student id data 
+    #get student id data
     selected_student = students.item(selected_row[0], "values")
-    #find student id in student list
+    #find student id in student list 
     id_to_delete = selected_student[0]
-    #remove that item from the list
-    for student in students: 
-            if student[id] == id_to_delete:
-                student.remove(id_to_delete)
-    #call refresh()
+    #remove that item from the list 
+    new_list = []
+    for student in students:
+        if student ["id"] != id_to_delete: 
+
+            new_list.append(student)
+
+    students = new_list
+    refresh()
+
 
 def save(_event=None):
     if not id_var.get().strip().isdigit():
