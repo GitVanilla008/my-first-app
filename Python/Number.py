@@ -1,14 +1,16 @@
-number = int(input("Enter a number: "))
-list = []
+number = (input('Enter a number: '))
+count = 0 
+total = 0
 
-while number:
-    list.append(number)
-    number = int(input("Enter a number: "))
-    break 
-number = int(input("Enter a number: "))
+while number == number:
+    number = (input('Enter a number: '))
+    count += 1
+    total += number
+    if number == '': 
+        break
 
-print("Count is: ", len(list))
-print("Sum is: ", sum(list))
-print("Avg is: ", (sum(list) / len(list)))
+print('Number of inputs: ', count)
+print('Sum of numbers: ', total)
+
 
 
