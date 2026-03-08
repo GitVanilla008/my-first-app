@@ -16,7 +16,3 @@ while True:
 print('Number of inputs: ', count)
 print('Sum of numbers: ', total)
 print('Average: ', total/count)
-
-
-
-
